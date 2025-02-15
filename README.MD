@@ -9,7 +9,8 @@
 
 ## About
 
-> TODO...
+This is a mod that allows
+other clients to retrieve information from a running Minecraft client via HTTP protocol.
 
 ## Document
 
