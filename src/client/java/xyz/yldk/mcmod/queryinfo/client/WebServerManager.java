@@ -54,18 +54,19 @@ public class WebServerManager {
             HashMap<String, Object> subData = new HashMap<>();
             subData.put("name", ModMetadataHelper.getModName());
             subData.put("version", ModMetadataHelper.getModVersion());
-            subData.put("fullVersion", ModMetadataHelper.getFullVersion());
 
             HashMap<String, Object> data = new HashMap<>();
             data.put("queryinfo", true);
-            data.put("basic", ModMetadataHelper.getModName() + "/" + ModMetadataHelper.getModVersion());
+            data.put("server", ModMetadataHelper.getModName() + "/" + ModMetadataHelper.getModVersion());
             data.put("version", subData);
 
             var resp = ApiTools.build(200, "OK", data);
             ctx.result(resp.format());
         });
+        
+        // ------------------------------------------------------
 
-        javalin.get("/api/info", ctx -> {
+        javalin.get("/api/client/info", ctx -> {
             CompletableFuture<ClientDataCollector.ClientData> future = new CompletableFuture<>();
 
             // Client Main Thread
