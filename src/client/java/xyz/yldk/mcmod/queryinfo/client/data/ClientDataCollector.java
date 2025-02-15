@@ -1,4 +1,4 @@
-package xyz.yldk.mcmod.queryinfo.client;
+package xyz.yldk.mcmod.queryinfo.client.data;
 
 import com.google.gson.Gson;
 import net.minecraft.client.MinecraftClient;

@@ -11,6 +11,6 @@ import xyz.yldk.mcmod.queryinfo.client.WebServerManager;
 public class MinecraftClientMixin {
     @Inject(method = "stop", at = @At("HEAD"))
     private void onStop(CallbackInfo ci) {
-        xyz.yldk.mcmod.queryinfo.client.WebServerManager.stopServer();
+        WebServerManager.stopServer();
     }
 }
