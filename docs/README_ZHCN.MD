@@ -18,5 +18,7 @@
 ## TODO
 
 - [ ] 添加服务器端支持
+- [ ] Websocket 支持
+- [ ] Server-Sent-Events 支持
 
 

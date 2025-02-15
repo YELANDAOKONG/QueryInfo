@@ -18,5 +18,7 @@
 ## TODO
 
 - [ ] Add server side support
+- [ ] Websocket support
+- [ ] Server-Sent-Events support
 
 
