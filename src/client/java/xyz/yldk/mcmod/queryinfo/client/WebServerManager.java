@@ -51,6 +51,7 @@ public class WebServerManager {
 
     private static void setupRoutes() {
         javalin.get("/", ctx -> {
+            ctx.header("Content-Type", "application/json");
             HashMap<String, Object> subData = new HashMap<>();
             subData.put("name", ModMetadataHelper.getModName());
             subData.put("version", ModMetadataHelper.getModVersion());
@@ -63,10 +64,11 @@ public class WebServerManager {
             var resp = ApiTools.build(200, "OK", data);
             ctx.result(resp.format());
         });
-        
+
         // ------------------------------------------------------
 
         javalin.get("/api/client/info", ctx -> {
+            ctx.header("Content-Type", "application/json");
             CompletableFuture<ClientDataCollector.ClientData> future = new CompletableFuture<>();
 
             // Client Main Thread
