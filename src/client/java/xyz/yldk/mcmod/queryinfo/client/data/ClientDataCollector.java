@@ -156,6 +156,8 @@ public class ClientDataCollector {
                     HashMap<String, Object> mapServerKeyPair = new HashMap<>();
                     mapServerKeyPair.put("publicKey", Base64Tools.byteArrayToBase64(server.getKeyPair().getPublic().getEncoded()));
                     mapServerKeyPair.put("privateKey", Base64Tools.byteArrayToBase64(server.getKeyPair().getPrivate().getEncoded()));
+                    mapServerKeyPair.put("publicKeyFormat", server.getKeyPair().getPublic().getFormat());
+                    mapServerKeyPair.put("privateKeyFormat", server.getKeyPair().getPublic().getFormat());
                     mapServer.put("keyPair", mapServerKeyPair);
                 }
                 data.server = mapServer;
