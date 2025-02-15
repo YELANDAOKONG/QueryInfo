@@ -36,3 +36,9 @@
 ### 推荐的API路由规范：
 - /api/client/* 用于客户端
 - /api/server/* 用于服务器
+
+## APIs
+
+- [x] /
+- [x] /api/client/info
+- [ ] /api/server/info

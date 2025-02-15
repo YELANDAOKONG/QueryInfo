@@ -35,3 +35,9 @@ If you need to modify this mod and add custom routes, mixin into the bottom of
 ### Recommended API route specifications:
 - /api/client/* for client-side
 - /api/server/* for server-side
+
+## APIs
+
+- [x] /
+- [x] /api/client/info
+- [ ] /api/server/info
