@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 public class QueryinfoClient implements ClientModInitializer {
 
+    public static final String MOD_ID = "queryinfo";
     public static final Logger LOGGER = LoggerFactory.getLogger("QueryInfo");
 
     @Override

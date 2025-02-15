@@ -8,7 +8,10 @@ import xyz.yldk.mcmod.queryinfo.client.config.ModConfigManager;
 import xyz.yldk.mcmod.queryinfo.client.data.ClientDataCollector;
 import net.minecraft.client.MinecraftClient;
 import xyz.yldk.mcmod.queryinfo.client.tools.ApiTools;
+import xyz.yldk.mcmod.queryinfo.client.tools.ModMetadataHelper;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class WebServerManager {
@@ -47,8 +50,23 @@ public class WebServerManager {
     }
 
     private static void setupRoutes() {
+        javalin.get("/", ctx -> {
+            HashMap<String, Object> subData = new HashMap<>();
+            subData.put("name", ModMetadataHelper.getModName());
+            subData.put("version", ModMetadataHelper.getModVersion());
+            subData.put("fullVersion", ModMetadataHelper.getFullVersion());
+
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("queryinfo", true);
+            data.put("basic", ModMetadataHelper.getModName() + "/" + ModMetadataHelper.getModVersion());
+            data.put("version", subData);
+
+            var resp = ApiTools.build(200, "OK", data);
+            ctx.result(resp.format());
+        });
+
         javalin.get("/api/info", ctx -> {
-            CompletableFuture<String> future = new CompletableFuture<>();
+            CompletableFuture<ClientDataCollector.ClientData> future = new CompletableFuture<>();
 
             // Client Main Thread
             MinecraftClient.getInstance().execute(() -> {
@@ -64,7 +82,8 @@ public class WebServerManager {
                 var resp = ApiTools.build(200, "OK", data);
                 ctx.result(resp.format());
             } catch (Exception e) {
-                ctx.status(500).result("Data collection failed");
+                logger.error("[QueryInfo/SERVER] Failed to collect data", e);
+                ctx.status(500).result(ApiTools.build(500, "Internet Server Error", null).format());
             }
         });
 

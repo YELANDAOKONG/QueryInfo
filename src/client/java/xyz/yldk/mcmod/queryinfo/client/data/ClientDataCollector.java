@@ -8,7 +8,7 @@ import net.minecraft.util.math.Vec3d;
 public class ClientDataCollector {
     private static final Gson gson = new Gson();
 
-    public static String collectGameData() {
+    public static ClientData collectGameData() {
         MinecraftClient client = MinecraftClient.getInstance();
         PlayerEntity player = client.player;
         ClientData data = new ClientData();
@@ -32,10 +32,10 @@ public class ClientDataCollector {
             data.isInGame = client.world != null;
         }
 
-        return gson.toJson(data);
+        return data;
     }
 
-    private static class ClientData {
+    public static class ClientData {
         public String playerName;
         public float health;
         public int hunger;
