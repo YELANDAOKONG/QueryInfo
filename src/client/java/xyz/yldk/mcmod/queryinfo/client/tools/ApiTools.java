@@ -8,7 +8,10 @@ public class ApiTools {
         long time = System.currentTimeMillis();
         String uuid = UUID.randomUUID().toString();
         return new ApiResponse(code, message, time, uuid, data);
+    }
 
+    public static String format(ApiResponse response){
+        return JsonTools.manualIndentFormat(response);
     }
 }
 

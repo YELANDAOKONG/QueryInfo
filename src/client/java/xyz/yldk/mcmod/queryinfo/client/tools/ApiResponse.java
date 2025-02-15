@@ -15,4 +15,8 @@ public class ApiResponse {
         this.uuid = uuid;
         this.data = data;
     }
+
+    public String format(){
+        return ApiTools.format(this);
+    }
 }

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import xyz.yldk.mcmod.queryinfo.client.config.ModConfigManager;
 import xyz.yldk.mcmod.queryinfo.client.data.ClientDataCollector;
 import net.minecraft.client.MinecraftClient;
+import xyz.yldk.mcmod.queryinfo.client.tools.ApiTools;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -60,9 +61,8 @@ public class WebServerManager {
 
             try {
                 var data = future.get();
-                // To 4-identify json ...
-
-                ctx.result();
+                var resp = ApiTools.build(200, "OK", data);
+                ctx.result(resp.format());
             } catch (Exception e) {
                 ctx.status(500).result("Data collection failed");
             }
