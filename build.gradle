@@ -1,7 +1,7 @@
 plugins {
     id 'fabric-loom' version '1.10-SNAPSHOT'
     id 'maven-publish'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    // id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 version = project.mod_version
@@ -35,11 +35,35 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // https://mvnrepository.com/artifact/io.javalin/javalin
-    implementation group: 'io.javalin', name: 'javalin', version: '6.4.0'
+    // include group: 'io.javalin', name: 'javalin', version: '6.4.0'
+    // implementation ('io.javalin:javalin:6.4.0')
+    modImplementation(include("io.javalin:javalin:6.4.0") {
+        transitive = true
+    })
+
+    include 'org.eclipse.jetty.websocket:websocket-jetty-server:11.0.24'
+    include 'org.eclipse.jetty:jetty-webapp:11.0.24'
+    include 'org.eclipse.jetty.websocket:websocket-servlet:11.0.24'
+    include 'org.eclipse.jetty:jetty-servlet:11.0.24'
+    include 'org.eclipse.jetty:jetty-security:11.0.24'
+    include 'org.eclipse.jetty.websocket:websocket-core-server:11.0.24'
+    include 'org.eclipse.jetty:jetty-server:11.0.24'
+    include 'org.eclipse.jetty.websocket:websocket-jetty-common:11.0.24'
+    include 'org.eclipse.jetty.websocket:websocket-core-common:11.0.24'
+    include 'org.eclipse.jetty:jetty-http:11.0.24'
+    include 'org.eclipse.jetty:jetty-io:11.0.24'
+    include 'org.eclipse.jetty:jetty-xml:11.0.24'
+    include 'org.eclipse.jetty:jetty-util:11.0.24'
+    include 'org.slf4j:slf4j-api:2.0.16'
+    include 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.25'
+    include 'org.jetbrains.kotlin:kotlin-stdlib:1.9.25'
+    include 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.25'
+    include 'org.eclipse.jetty.toolchain:jetty-jakarta-servlet-api:5.0.2'
+    include 'org.eclipse.jetty.websocket:websocket-jetty-api:11.0.24'
+    include 'org.jetbrains:annotations:25.0.0'
 
 }
 
@@ -85,19 +109,20 @@ jar {
     }
 }
 
-shadowJar {
-    archiveClassifier.set('all')
-    mergeServiceFiles()
-    manifest { }
-    dependencies {
-        include(dependency('io.javalin:javalin:6.4.0'))
-    }
 
-    from sourceSets.main.output
-    from sourceSets.client.output
-}
-
-tasks.build.dependsOn shadowJar
+//shadowJar {
+//    archiveClassifier.set('all')
+//    mergeServiceFiles()
+//    manifest { }
+//    dependencies {
+//        include(dependency('io.javalin:javalin:6.4.0'))
+//    }
+//
+//    from sourceSets.main.output
+//    from sourceSets.client.output
+//}
+//
+//tasks.build.dependsOn shadowJar
 
 // configure the maven publication
 publishing {
