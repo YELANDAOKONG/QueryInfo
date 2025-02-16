@@ -2,8 +2,8 @@
 
 ### Languages
 
-- English
-- [Chinese Simplified](docs/README_ZHCN.MD)
+- [English](../README.MD)
+- Chinese Simplified
 
 ---
 
