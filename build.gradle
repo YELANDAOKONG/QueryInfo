@@ -89,6 +89,9 @@ shadowJar {
     archiveClassifier.set('all')
     mergeServiceFiles()
     manifest { }
+    dependencies {
+        include(dependency('io.javalin:javalin:6.4.0'))
+    }
 }
 
 tasks.build.dependsOn shadowJar
