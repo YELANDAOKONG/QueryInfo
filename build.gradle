@@ -1,6 +1,7 @@
 plugins {
     id 'fabric-loom' version '1.10-SNAPSHOT'
     id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 version = project.mod_version
@@ -84,6 +85,14 @@ jar {
     }
 }
 
+shadowJar {
+    archiveClassifier.set('all')
+    mergeServiceFiles()
+    manifest { }
+}
+
+tasks.build.dependsOn shadowJar
+
 // configure the maven publication
 publishing {
     publications {
@@ -101,3 +110,6 @@ publishing {
         // retrieving dependencies.
     }
 }
+
+
+
