@@ -92,6 +92,9 @@ shadowJar {
     dependencies {
         include(dependency('io.javalin:javalin:6.4.0'))
     }
+
+    from sourceSets.main.output
+    from sourceSets.client.output
 }
 
 tasks.build.dependsOn shadowJar
