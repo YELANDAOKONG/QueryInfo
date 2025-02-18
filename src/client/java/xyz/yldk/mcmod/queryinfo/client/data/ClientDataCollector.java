@@ -16,21 +16,24 @@ public class ClientDataCollector {
     public static ClientData collectGameData() {
         MinecraftClient client = MinecraftClient.getInstance();
         PlayerEntity player = client.player;
-        Entity cameraEntity = client.cameraEntity;
-        IntegratedServer server = client.getServer();
         ClientData data = new ClientData();
 
         // Client Status
         {
             data.fps = client.getCurrentFps();
             data.isInGame = client.world != null;
-            data.attackCooldown = client.attackCooldown;
+            data.isPaused = client.isPaused();
+            data.isDemo = client.isDemo();
+            data.isFinishedLoading = client.isFinishedLoading();
+            data.isRealmsEnabled = client.isRealmsEnabled();
             data.isInSingleplayer = client.isInSingleplayer();
             data.isIntegratedServerRunning = client.isIntegratedServerRunning();
             data.isConnectedToLocalServer = client.isConnectedToLocalServer();
             data.isMultiplayerEnabled = client.isMultiplayerEnabled();
+
         }
-            // Others
+
+        // Others
         {
             // Player
             if (player != null) {
@@ -108,60 +111,7 @@ public class ClientDataCollector {
                 data.world = mapWorld;
             }
 
-            if (cameraEntity != null) {
-                HashMap<String, Object> mapCameraEntity = new HashMap<>();
-                mapCameraEntity.put("name", cameraEntity.getName().getString());
-                mapCameraEntity.put("uuid", cameraEntity.getUuidAsString());
-                var displayName = cameraEntity.getDisplayName();
-                mapCameraEntity.put("displayName", displayName == null ? null : displayName.getString());
-                mapCameraEntity.put("blockX", cameraEntity.getBlockX());
-                mapCameraEntity.put("blockY", cameraEntity.getBlockY());
-                mapCameraEntity.put("blockZ", cameraEntity.getBlockZ());
-                Vec3d pos = cameraEntity.getPos();
-                mapCameraEntity.put("pos", new double[]{pos.x, pos.y, pos.z});
-                data.cameraEntity = mapCameraEntity;
-            }
 
-            // Server
-            if (server != null) {
-                HashMap<String, Object> mapServer = new HashMap<>();
-                mapServer.put("name", server.getName());
-                mapServer.put("serverPort", server.getServerPort());
-                var forcedGameMode = server.getForcedGameMode();
-                mapServer.put("forcedGameMode", forcedGameMode == null ? null : forcedGameMode.asString());
-                mapServer.put("isModded", server.getModStatus().isModded());
-                mapServer.put("functionPermissionLevel", server.getFunctionPermissionLevel());
-                mapServer.put("opPermissionLevel", server.getOpPermissionLevel());
-                mapServer.put("rateLimit", server.getRateLimit());
-                mapServer.put("runDirectory", server.getRunDirectory().toString());
-                mapServer.put("averageNanosPerTick", server.getAverageNanosPerTick());
-                mapServer.put("averageTickTime", server.getAverageTickTime());
-                mapServer.put("currentPlayerCount", server.getCurrentPlayerCount());
-                mapServer.put("defaultGameMode", server.getDefaultGameMode().asString());
-                mapServer.put("maxPlayerCount", server.getMaxPlayerCount());
-                mapServer.put("maxWorldBorderRadius", server.getMaxWorldBorderRadius());
-                mapServer.put("maxChainedNeighborUpdates", server.getMaxChainedNeighborUpdates());
-                mapServer.put("networkCompressionThreshold", server.getNetworkCompressionThreshold());
-                mapServer.put("spawnProtectionRadius", server.getSpawnProtectionRadius());
-                mapServer.put("playerIdleTimeout", server.getPlayerIdleTimeout());
-                mapServer.put("serverIp", server.getServerIp());
-                mapServer.put("serverMotd", server.getServerMotd());
-                mapServer.put("serverModName", server.getServerModName());
-                mapServer.put("taskCount", server.getTaskCount());
-                mapServer.put("ticks", server.getTicks());
-                mapServer.put("tickTimes", server.getTickTimes());
-                mapServer.put("version", server.getVersion());
-                mapServer.put("timeReference", server.getTimeReference());
-                {
-                    HashMap<String, Object> mapServerKeyPair = new HashMap<>();
-                    mapServerKeyPair.put("publicKey", Base64Tools.byteArrayToBase64(server.getKeyPair().getPublic().getEncoded()));
-                    mapServerKeyPair.put("privateKey", Base64Tools.byteArrayToBase64(server.getKeyPair().getPrivate().getEncoded()));
-                    mapServerKeyPair.put("publicKeyFormat", server.getKeyPair().getPublic().getFormat());
-                    mapServerKeyPair.put("privateKeyFormat", server.getKeyPair().getPublic().getFormat());
-                    mapServer.put("keyPair", mapServerKeyPair);
-                }
-                data.server = mapServer;
-            }
 
         }
 
@@ -171,7 +121,10 @@ public class ClientDataCollector {
     public static class ClientData {
         public int fps;
         public boolean isInGame;
-        public int attackCooldown;
+        public boolean isPaused;
+        public boolean isDemo;
+        public boolean isFinishedLoading;
+        public boolean isRealmsEnabled;
         public boolean isInSingleplayer;
         public boolean isIntegratedServerRunning;
         public boolean isConnectedToLocalServer;
@@ -179,7 +132,6 @@ public class ClientDataCollector {
 
         public HashMap<String, Object> player = new HashMap<>();
         public HashMap<String, Object> world = new HashMap<>();
-        public HashMap<String, Object> cameraEntity = new HashMap<>();
-        public HashMap<String, Object> server = new HashMap<>();
+
     }
 }
