@@ -13,7 +13,9 @@
 
 ## 文档
 
-> TODO...
+[Client API (仅简体中文)](apis/ClientAPI_ZHCN.MD)
+
+> TODO: 英文版
 
 ## TODO
 
@@ -41,4 +43,5 @@
 
 - [x] /
 - [x] /api/client/info
+- [ ] /api/client/entities
 - [ ] /api/server/info

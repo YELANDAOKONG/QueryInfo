@@ -14,7 +14,9 @@ other clients to retrieve information from a running Minecraft client via HTTP p
 
 ## Document
 
-> TODO...
+[Client API (Chinese Simplified Only)](docs/apis/ClientAPI_ZHCN.MD)
+
+> TODO: English language support is coming soon.
 
 ## TODO
 
@@ -41,4 +43,5 @@ If you need to modify this mod and add custom routes, mixin into the bottom of
 
 - [x] /
 - [x] /api/client/info
+- [x] /api/client/entities
 - [ ] /api/server/info
