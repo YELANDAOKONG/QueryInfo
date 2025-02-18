@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import xyz.yldk.mcmod.queryinfo.client.config.ModConfigManager;
 import xyz.yldk.mcmod.queryinfo.client.data.ClientDataCollector;
 import net.minecraft.client.MinecraftClient;
+import xyz.yldk.mcmod.queryinfo.client.data.WorldEntitiesCollector;
 import xyz.yldk.mcmod.queryinfo.client.tools.ApiTools;
 import xyz.yldk.mcmod.queryinfo.client.tools.ModMetadataHelper;
 
@@ -75,6 +76,29 @@ public class WebServerManager {
             MinecraftClient.getInstance().execute(() -> {
                 try {
                     future.complete(ClientDataCollector.collectGameData());
+                } catch (Exception e) {
+                    future.completeExceptionally(e);
+                }
+            });
+
+            try {
+                var data = future.get();
+                var resp = ApiTools.build(200, "OK", data);
+                ctx.result(resp.format());
+            } catch (Exception e) {
+                logger.error("[QueryInfo/SERVER] Failed to collect data", e);
+                ctx.status(500).result(ApiTools.build(500, "Internet Server Error", null).format());
+            }
+        });
+
+        javalin.get("/api/client/entities", ctx -> {
+            ctx.header("Content-Type", "application/json");
+            CompletableFuture<HashMap<String, Object>> future = new CompletableFuture<>();
+
+            // Client Main Thread
+            MinecraftClient.getInstance().execute(() -> {
+                try {
+                    future.complete(WorldEntitiesCollector.collectWorldEntities());
                 } catch (Exception e) {
                     future.completeExceptionally(e);
                 }

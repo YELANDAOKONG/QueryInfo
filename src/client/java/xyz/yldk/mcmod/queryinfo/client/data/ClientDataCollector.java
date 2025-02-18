@@ -30,7 +30,6 @@ public class ClientDataCollector {
             data.isIntegratedServerRunning = client.isIntegratedServerRunning();
             data.isConnectedToLocalServer = client.isConnectedToLocalServer();
             data.isMultiplayerEnabled = client.isMultiplayerEnabled();
-
         }
 
         // Others
@@ -86,7 +85,7 @@ public class ClientDataCollector {
                 mapWorld.put("type", client.world.getRegistryKey().getValue().toString());
                 mapWorld.put("moonSize", client.world.getMoonSize());
                 mapWorld.put("moonPhase", client.world.getMoonPhase());
-
+                mapWorld.put("loadedChunkCount", client.world.getChunkManager().getLoadedChunkCount());
                 {
                     HashMap<String, Object> mapWorldDimension = new HashMap<>();
                     mapWorldDimension.put("ambientLight", client.world.getDimension().ambientLight());
