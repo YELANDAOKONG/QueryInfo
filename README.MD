@@ -22,7 +22,7 @@ other clients to retrieve information from a running Minecraft client via HTTP p
 
 ### Preferred
 - [ ] Replace error pages with JSON (e.g., 404)
-- [ ] Allow execution of operations (not limited to information retrieval)
+- [x] Allow execution of operations (not limited to information retrieval)
 - [ ] Add server side support
 ### Others
 - [ ] Websocket support
@@ -44,4 +44,8 @@ If you need to modify this mod and add custom routes, mixin into the bottom of
 - [x] /
 - [x] /api/client/info
 - [x] /api/client/entities
+- [x] /api/client/show_msg
+- [x] /api/client/send_msg
+- [x] /api/client/send_command
+- [ ] /api/client/recv_msgs (SSE)
 - [ ] /api/server/info

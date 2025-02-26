@@ -21,7 +21,7 @@
 
 ### 优先
 - [ ] 替换错误页面为JSON（如404）
-- [ ] 允许执行操作（不仅仅是信息获取）
+- [x] 允许执行操作（不仅仅是信息获取）
 - [ ] 添加服务器端支持
 ### 其他
 - [ ] Websocket 支持
@@ -43,5 +43,9 @@
 
 - [x] /
 - [x] /api/client/info
-- [ ] /api/client/entities
+- [x] /api/client/entities
+- [x] /api/client/show_msg
+- [x] /api/client/send_msg
+- [x] /api/client/send_command
+- [ ] /api/client/recv_msgs (SSE)
 - [ ] /api/server/info
