@@ -1,6 +1,5 @@
 package xyz.yldk.mcmod.queryinfo.client;
 
-import com.google.gson.Gson;
 import io.javalin.Javalin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,11 +7,11 @@ import xyz.yldk.mcmod.queryinfo.client.config.ModConfigManager;
 import xyz.yldk.mcmod.queryinfo.client.data.ClientDataCollector;
 import net.minecraft.client.MinecraftClient;
 import xyz.yldk.mcmod.queryinfo.client.data.WorldEntitiesCollector;
+import xyz.yldk.mcmod.queryinfo.client.routers.api.client.ShowMsgRouter;
 import xyz.yldk.mcmod.queryinfo.client.tools.ApiTools;
 import xyz.yldk.mcmod.queryinfo.client.tools.ModMetadataHelper;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class WebServerManager {
@@ -113,6 +112,11 @@ public class WebServerManager {
                 ctx.status(500).result(ApiTools.build(500, "Internet Server Error", null).format());
             }
         });
+
+        javalin.get("/api/client/show_msg", ctx -> {
+            ShowMsgRouter.Get(logger, ctx);
+        });
+
 
         // More APIs Here
     }
