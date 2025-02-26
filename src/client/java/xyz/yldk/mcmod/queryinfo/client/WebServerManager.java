@@ -7,6 +7,8 @@ import xyz.yldk.mcmod.queryinfo.client.config.ModConfigManager;
 import xyz.yldk.mcmod.queryinfo.client.data.ClientDataCollector;
 import net.minecraft.client.MinecraftClient;
 import xyz.yldk.mcmod.queryinfo.client.data.WorldEntitiesCollector;
+import xyz.yldk.mcmod.queryinfo.client.routers.api.client.SendCommandRouter;
+import xyz.yldk.mcmod.queryinfo.client.routers.api.client.SendMsgRouter;
 import xyz.yldk.mcmod.queryinfo.client.routers.api.client.ShowMsgRouter;
 import xyz.yldk.mcmod.queryinfo.client.tools.ApiTools;
 import xyz.yldk.mcmod.queryinfo.client.tools.ModMetadataHelper;
@@ -115,6 +117,14 @@ public class WebServerManager {
 
         javalin.get("/api/client/show_msg", ctx -> {
             ShowMsgRouter.Get(logger, ctx);
+        });
+
+        javalin.get("/api/client/send_msg", ctx -> {
+            SendMsgRouter.Get(logger, ctx);
+        });
+
+        javalin.get("/api/client/send_command", ctx -> {
+            SendCommandRouter.Get(logger, ctx);
         });
 
 
